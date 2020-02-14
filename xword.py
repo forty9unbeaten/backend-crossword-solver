@@ -1,9 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Crossword Solver Program"""
 __author__ = "Rob Spears (GitHub: Forty9Unbeaten)"
 
-# YOUR HELPER FUNCTION GOES HERE
+import sys
+
+if sys.version_info[0] < 3:
+    raise Exception('Hey amigo, gotta run Python 3...')
 
 
 def get_input(input_message):
@@ -30,6 +33,24 @@ def get_input(input_message):
 
 
 def get_matches(word_list, user_word):
+    matches = []
+    blank_indices = [i for i in range(
+        0, len(user_word)) if user_word[i] == ' ']
+    for word in word_list:
+        if len(word) == len(user_word):
+            split_word = list(word)
+            for i in blank_indices:
+                split_word[i] = ' '
+            if ''.join(split_word) == user_word:
+                matches.append(word)
+    return matches
+
+
+def print_matches(matches):
+    print('\n*** Possible Matches ***')
+    print('________________________\n')
+    for word in matches:
+        print('-- ' + word + '\n')
 
 
 def main():
@@ -40,11 +61,8 @@ def main():
                      'Use spaces to signify unknown letters: ']
 
     user_word = get_input(''.join(input_message)).lower()
-
     matches = get_matches(word_list, user_word)
-
-    # YOUR ADDITIONAL CODE HERE
-    raise NotImplementedError('Please complete this')
+    print_matches(matches)
 
 
 if __name__ == '__main__':
