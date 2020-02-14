@@ -33,7 +33,6 @@ def get_input(input_message):
 
 
 def get_matches(word_list, user_word):
-    matches = []
     blank_indices = [i for i in range(
         0, len(user_word)) if user_word[i] == ' ']
     for word in word_list:
@@ -42,8 +41,7 @@ def get_matches(word_list, user_word):
             for i in blank_indices:
                 split_word[i] = ' '
             if ''.join(split_word) == user_word:
-                matches.append(word)
-    return matches
+                yield word
 
 
 def print_matches(matches):
